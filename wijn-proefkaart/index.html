@@ -1,0 +1,428 @@
+<title>Cum Laude Proefkaart</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Proefkaart">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow column like a cellar card; list of six glasses, tap for the tasting sheet, a compare view for the two of you. */
+:root {
+  --bg: #eef0ee;
+  --surface: #ffffff;
+  --ink: #1d1a1f;
+  --muted: #66606a;
+  --line: #d9dbd8;
+  --accent: #7c1f35;
+  --accent-soft: #f3e3e6;
+  --partner: #3c5a6e;
+  --partner-soft: #e1e9ee;
+  --ok: #2f6b45;
+  --font-display: "Gloock", "Iowan Old Style", Georgia, serif;
+  --font-body: "Instrument Sans", -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141116; --surface: #1f1b22; --ink: #f1edf2; --muted: #a59eaa; --line: #342e38;
+    --accent: #e0788f; --accent-soft: #3a2029; --partner: #8fb6cf; --partner-soft: #1e2d37; --ok: #7cc597;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141116; --surface: #1f1b22; --ink: #f1edf2; --muted: #a59eaa; --line: #342e38;
+  --accent: #e0788f; --accent-soft: #3a2029; --partner: #8fb6cf; --partner-soft: #1e2d37; --ok: #7cc597;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 48px;
+  -webkit-text-size-adjust: 100%;
+}
+.wrap { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; margin: 0; text-wrap: balance; line-height: 1.15; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.1rem; }
+p { margin: 0; }
+.eyebrow { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.muted { color: var(--muted); }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+header.top { display: flex; flex-direction: column; gap: 6px; }
+.status { font-size: .82rem; color: var(--muted); }
+.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: var(--line); padding: 4px; border-radius: 12px; }
+.tabs button { border: 0; background: transparent; padding: 10px; border-radius: 9px; font-weight: 600; color: var(--muted); }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); }
+
+/* Wine list */
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.list li { border-bottom: 1px solid var(--line); }
+.row { width: 100%; display: grid; grid-template-columns: 28px 1fr auto; gap: 14px; align-items: center; background: none; border: 0; text-align: left; padding: 16px 0; }
+.num { font-family: var(--font-mono); font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.row-main { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.row-name { font-family: var(--font-display); font-size: 1.15rem; line-height: 1.2; }
+.row-meta { font-size: .85rem; color: var(--muted); }
+.scores { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+.pill { font-family: var(--font-mono); font-size: .78rem; padding: 2px 8px; border-radius: 99px; min-width: 52px; text-align: center; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pill.me { background: var(--accent-soft); color: var(--accent); }
+.pill.partner { background: var(--partner-soft); color: var(--partner); }
+.pill.empty { background: transparent; color: var(--muted); border: 1px dashed var(--line); }
+.glass { width: 10px; height: 10px; border-radius: 50%; display: inline-block; vertical-align: 1px; margin-right: 6px; }
+
+/* Detail */
+.back { align-self: flex-start; background: none; border: 0; padding: 6px 0; color: var(--accent); font-weight: 600; }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; font-size: .92rem; margin: 0; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; min-width: 0; }
+details.shop { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+details.shop summary { font-weight: 600; cursor: pointer; }
+details.shop div { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; font-size: .92rem; }
+
+.sheet { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 16px; display: flex; flex-direction: column; gap: 22px; }
+.who { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.field { display: flex; flex-direction: column; gap: 10px; }
+.field-label { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.field-label strong { font-weight: 600; }
+.field-label span { font-size: .82rem; color: var(--muted); }
+.score10 { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; }
+.score10 button, .seg button, .chip {
+  border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 9px 0;
+  font-variant-numeric: tabular-nums; min-height: 40px;
+}
+.score10 button { font-family: var(--font-mono); font-size: .9rem; padding: 0; }
+.score10 button.on, .seg button.on, .chip.on { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.seg { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+.seg.three { grid-template-columns: repeat(3, 1fr); }
+.seg.four { grid-template-columns: repeat(4, 1fr); }
+.seg button { font-size: .85rem; padding: 8px 2px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { padding: 7px 12px; border-radius: 99px; font-size: .88rem; min-height: 36px; }
+.scale-ends { display: flex; justify-content: space-between; font-size: .75rem; color: var(--muted); margin-top: -4px; }
+textarea { width: 100%; min-height: 96px; font: inherit; font-size: 16px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; resize: vertical; }
+.saved { font-size: .8rem; color: var(--ok); min-height: 1.2em; }
+
+.partner-card { border-left: 3px solid var(--partner); padding: 4px 0 4px 14px; display: flex; flex-direction: column; gap: 6px; }
+.partner-card .kv { font-size: .9rem; }
+
+/* Compare */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+th, td { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+td.n { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+th.n { text-align: right; }
+.winner { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 4px; }
+.note { font-size: .85rem; color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) { .tabs button, .chip, .seg button, .score10 button { transition: background-color .15s, color .15s; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">Colaris wijnpakket &middot; 6 rode wijnen</span>
+    <h1>Cum Laude Proefkaart</h1>
+    <p class="status" id="status">Laden...</p>
+  </header>
+  <div class="tabs" role="tablist">
+    <button id="tab-list" role="tab" aria-selected="true">Wijnen</button>
+    <button id="tab-samen" role="tab" aria-selected="false">Samen vergelijken</button>
+  </div>
+  <main id="view"></main>
+</div>
+
+<script>
+const WINES = [
+  { id: "carignan", name: "Terre de Jules Carignan-Syrah", vintage: 2023, producer: "Mas de Jules", country: "Frankrijk", region: "Languedoc, Pays d'Hérault", grapes: "70% Carignan (oude stokken), 30% Syrah", extra: "Biologisch, koolzuurmaceratie", hue: "#8a1f3d",
+    shop: "Fruitig, zacht en rond. Smaken van zwarte bes en bramenjam. Gemaakt met koolzuurmaceratie voor fruit en frisheid.", pair: "" },
+  { id: "mafalda", name: "Little Mafalda Douro", vintage: 2023, producer: "Quinta Dona Mafalda", country: "Portugal", region: "Douro DOC", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz, Tinta Barroca", hue: "#5e1530",
+    shop: "Donker fruit, levendige zuren, zachte structuur en een licht peperige afdronk. Zure kers, blauwe bes, bloemige en kruidige tonen.", pair: "Gegrilde kip of kalkoen, tapas met chorizo en Manchego, pasta met geroosterde groenten, burgers." },
+  { id: "malbec", name: "Château du Cèdre Marcel Malbec", vintage: 2023, producer: "Château du Cèdre", country: "Frankrijk", region: "Cahors, Vin de France", grapes: "Malbec", hue: "#4a0f2b",
+    shop: "Diep robijnrood. Rijpe braam en zwarte kers met viooltjes en kruiden. Sappig en rond, zachte tannines, kort houtcontact en een hint van cacao.", pair: "" },
+  { id: "cabernet", name: "La Bergerie de la Jasse Cabernet Sauvignon", vintage: 2023, producer: "Domaine de la Jasse", country: "Frankrijk", region: "Languedoc", grapes: "Cabernet Sauvignon", hue: "#521329",
+    shop: "Rijpe zwarte bes, braam, peper, vanille en een vleugje eik. Zacht en in balans met een lange, elegante afdronk.", pair: "Gegrild vlees, stoofpotten en belegen kazen." },
+  { id: "primitivo", name: "Tormaresca Neprica Primitivo", vintage: 2024, producer: "Tormaresca (familie Antinori)", country: "Italië", region: "Puglia", grapes: "Primitivo", hue: "#5a1236",
+    shop: "Rijpe bessen, pruimen en kruiden met een hint peper. Sappig rood en zwart fruit, zachte tannines, soepele fruitige afdronk.", pair: "Verse pasta met ragù, gegrild lamsvlees, aubergine met tomaat, halfharde Italiaanse kazen." },
+  { id: "rioja", name: "Ortega Ezquerro Rioja Crianza", vintage: 2021, producer: "Bodegas Ortega Ezquerro", country: "Spanje", region: "Rioja Baja, Tudelilla", grapes: "Tempranillo en Garnacha (stokken ouder dan 70 jaar)", extra: "15 maanden houtrijping", hue: "#6b1a2a",
+    shop: "Rijpe kers, drop, rozen, kokos en zoete kruiden. Zachte tannines, mooie balans tussen fruit en hout.", pair: "Lamsrack met rozemarijn en knoflook, gestoofd rundvlees, gegrilde groenten met balsamico, Manchego." }
+];
+const AROMAS = ["Rode kers", "Zwarte kers", "Braam", "Zwarte bes", "Pruim", "Blauwe bes", "Jam", "Viooltjes", "Rozen", "Peper", "Kruiden", "Vanille", "Eik", "Cacao", "Drop", "Kokos", "Leer", "Aards"];
+const COLORS = ["Paars", "Robijn", "Granaat", "Baksteen"];
+const SCALES = [
+  { key: "zuur", label: "Zuurgraad", lo: "zacht", hi: "fris" },
+  { key: "tannine", label: "Tannine", lo: "soepel", hi: "stroef" },
+  { key: "body", label: "Body", lo: "licht", hi: "vol" },
+  { key: "afdronk", label: "Afdronk", lo: "kort", hi: "lang" }
+];
+const BUY = [["ja", "Ja, kopen"], ["misschien", "Misschien"], ["nee", "Nee"]];
+
+const state = { me: null, myId: null, mine: {}, others: {}, names: {}, mode: "loading", view: "list", wine: null, readOnly: false };
+let db = null, user = null, saveTimer = null, saving = false, pendingSave = false;
+const LS_KEY = "proefkaart-cumlaude-v1";
+
+function el(tag, attrs, ...kids) {
+  const n = document.createElement(tag);
+  if (attrs) for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") n.className = v;
+    else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+    else if (v !== false && v != null) n.setAttribute(k, v === true ? "" : v);
+  }
+  for (const k of kids.flat()) if (k != null && k !== false) n.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return n;
+}
+const wineById = id => WINES.find(w => w.id === id);
+const myEntry = id => state.mine[id] || {};
+const partnerIds = () => Object.keys(state.others);
+const nameOf = id => state.names[id] || "Partner";
+function avg(nums) { const v = nums.filter(x => typeof x === "number"); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; }
+function fmt(n) { return n == null ? "–" : (Math.round(n * 10) / 10).toString().replace(".", ","); }
+
+/* Storage */
+function loadLocal() { try { return JSON.parse(localStorage.getItem(LS_KEY) || "{}"); } catch { return {}; } }
+function saveLocal() { try { localStorage.setItem(LS_KEY, JSON.stringify(state.mine)); } catch {} }
+
+function queueSave() {
+  saveLocal();
+  if (state.mode !== "shared") { flashSaved("Bewaard op dit toestel"); return; }
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(doSave, 700);
+}
+async function doSave() {
+  saveTimer = null;
+  if (saving) { pendingSave = true; return; }
+  saving = true;
+  try {
+    await db.collection("proevers").doc(state.myId).set({ wines: JSON.parse(JSON.stringify(state.mine)), updated: new Date().toISOString() });
+    flashSaved("Opgeslagen en gedeeld");
+  } catch (e) {
+    if (e && e.code === "invalid_argument") { state.readOnly = true; setStatus("Je kunt hier alleen meekijken. Vraag om Bijdrager-toegang om zelf te proeven."); render(); }
+    else flashSaved("Opslaan lukte niet, probeer het zo opnieuw");
+  } finally {
+    saving = false;
+    if (pendingSave) { pendingSave = false; doSave(); }
+  }
+}
+function flashSaved(msg) { const s = document.getElementById("saved"); if (s) { s.textContent = msg; } }
+function setStatus(t) { document.getElementById("status").textContent = t; }
+
+function setField(wineId, key, value) {
+  if (state.readOnly) return;
+  const cur = Object.assign({}, state.mine[wineId] || {});
+  cur[key] = value;
+  if (!cur.datum) cur.datum = new Date().toISOString().slice(0, 10);
+  state.mine = Object.assign({}, state.mine, { [wineId]: cur });
+  queueSave();
+}
+
+/* Views */
+function render() {
+  const v = document.getElementById("view");
+  v.replaceChildren(state.view === "wine" ? renderWine(wineById(state.wine)) : state.view === "samen" ? renderSamen() : renderList());
+  document.getElementById("tab-list").setAttribute("aria-selected", state.view !== "samen");
+  document.getElementById("tab-samen").setAttribute("aria-selected", state.view === "samen");
+}
+
+function scorePills(id) {
+  const box = el("div", { class: "scores" });
+  const m = myEntry(id).score;
+  box.append(el("span", { class: "pill " + (m ? "me" : "empty") }, "Jij " + (m || "–")));
+  for (const pid of partnerIds()) {
+    const s = (state.others[pid][id] || {}).score;
+    box.append(el("span", { class: "pill " + (s ? "partner" : "empty") }, nameOf(pid).split(" ")[0] + " " + (s || "–")));
+  }
+  return box;
+}
+
+function renderList() {
+  const done = WINES.filter(w => myEntry(w.id).score).length;
+  return el("section", { class: "wrap", style: "gap:14px" },
+    el("div", { class: "field-label" },
+      el("span", { class: "eyebrow" }, "Proefvolgorde: licht naar vol"),
+      el("span", { class: "num" }, done + "/6 geproefd")),
+    el("ul", { class: "list" }, WINES.map((w, i) => el("li", null,
+      el("button", { class: "row", onclick: () => go("wine", w.id) },
+        el("span", { class: "num" }, String(i + 1).padStart(2, "0")),
+        el("span", { class: "row-main" },
+          el("span", { class: "row-name" }, w.name),
+          el("span", { class: "row-meta" }, el("span", { class: "glass", style: "background:" + w.hue }), w.country + " · " + w.vintage)),
+        scorePills(w.id))))),
+    el("p", { class: "note" }, "Tip: proef in deze volgorde, van de lichte Carignan naar de gerijpte Rioja. Schenk op 16 tot 18 °C.")
+  );
+}
+
+function segButtons(cls, options, current, onPick) {
+  return el("div", { class: "seg " + cls }, options.map(([val, label]) =>
+    el("button", { class: current === val ? "on" : "", "aria-pressed": current === val, disabled: state.readOnly,
+      onclick: () => onPick(current === val ? null : val) }, label)));
+}
+
+function renderWine(w) {
+  const e = myEntry(w.id);
+  const rerender = () => render();
+  const pick = (key) => (val) => { setField(w.id, key, val); rerender(); };
+
+  const sheet = el("section", { class: "sheet" },
+    el("div", { class: "who" }, el("h3", null, "Jouw proefnotitie"), el("span", { id: "saved", class: "saved" })),
+    el("div", { class: "field" },
+      el("div", { class: "field-label" }, el("strong", null, "Kleur")),
+      segButtons("four", COLORS.map(c => [c, c]), e.kleur, pick("kleur"))),
+    el("div", { class: "field" },
+      el("div", { class: "field-label" }, el("strong", null, "Geur en smaak"), el("span", null, "tik wat je herkent")),
+      el("div", { class: "chips" }, AROMAS.map(a => {
+        const on = (e.aromas || []).includes(a);
+        return el("button", { class: "chip" + (on ? " on" : ""), "aria-pressed": on, disabled: state.readOnly, onclick: () => {
+          const list = new Set(e.aromas || []); on ? list.delete(a) : list.add(a);
+          setField(w.id, "aromas", [...list]); rerender();
+        } }, a);
+      }))),
+    ...SCALES.map(s => el("div", { class: "field" },
+      el("div", { class: "field-label" }, el("strong", null, s.label)),
+      segButtons("", [1, 2, 3, 4, 5].map(n => [n, String(n)]), e[s.key], pick(s.key)),
+      el("div", { class: "scale-ends" }, el("span", null, s.lo), el("span", null, s.hi)))),
+    el("div", { class: "field" },
+      el("div", { class: "field-label" }, el("strong", null, "Cijfer"), el("span", null, "1 tot 10")),
+      el("div", { class: "score10" }, [1,2,3,4,5,6,7,8,9,10].map(n =>
+        el("button", { class: e.score === n ? "on" : "", "aria-pressed": e.score === n, "aria-label": "Cijfer " + n, disabled: state.readOnly,
+          onclick: () => pick("score")(e.score === n ? null : n) }, String(n))))),
+    el("div", { class: "field" },
+      el("div", { class: "field-label" }, el("strong", null, "Nog eens kopen?")),
+      segButtons("three", BUY, e.kopen, pick("kopen"))),
+    el("div", { class: "field" },
+      el("label", { class: "field-label", for: "notitie-" + w.id }, el("strong", null, "Notitie")),
+      (() => { const t = el("textarea", { id: "notitie-" + w.id, placeholder: "Wat viel op? Bij welk gerecht zou je hem drinken?", disabled: state.readOnly });
+        t.value = e.notitie || "";
+        t.addEventListener("input", () => setField(w.id, "notitie", t.value));
+        return t; })())
+  );
+
+  const partners = partnerIds().map(pid => {
+    const p = state.others[pid][w.id];
+    if (!p || !Object.keys(p).length) return el("div", { class: "partner-card" }, el("strong", null, nameOf(pid)), el("span", { class: "muted" }, "Heeft deze wijn nog niet geproefd."));
+    const kv = (k, v) => v ? el("div", { class: "kv" }, el("span", { class: "muted" }, k + ": "), v) : null;
+    return el("div", { class: "partner-card" },
+      el("strong", null, nameOf(pid) + (p.score ? " geeft een " + p.score : "")),
+      kv("Kleur", p.kleur), kv("Herkent", (p.aromas || []).join(", ")),
+      kv("Structuur", SCALES.filter(s => p[s.key]).map(s => s.label.toLowerCase() + " " + p[s.key]).join(", ")),
+      kv("Kopen", (BUY.find(b => b[0] === p.kopen) || [])[1]), kv("Notitie", p.notitie));
+  });
+
+  return el("article", { class: "wrap" },
+    el("button", { class: "back", onclick: () => go("list") }, "‹ Alle wijnen"),
+    el("div", { class: "top" , style: "display:flex;flex-direction:column;gap:6px" },
+      el("span", { class: "eyebrow" }, el("span", { class: "glass", style: "background:" + w.hue }), w.country + " · " + w.region),
+      el("h2", null, w.name + " " + w.vintage)),
+    el("dl", { class: "facts" },
+      el("dt", null, "Producent"), el("dd", null, w.producer),
+      el("dt", null, "Druiven"), el("dd", null, w.grapes),
+      w.extra ? el("dt", null, "Bijzonder") : null, w.extra ? el("dd", null, w.extra) : null),
+    el("details", { class: "shop" }, el("summary", null, "Beschrijving van Colaris"),
+      el("div", null, el("p", null, w.shop), w.pair ? el("p", null, el("strong", null, "Past bij: "), w.pair) : null)),
+    sheet,
+    partners.length ? el("section", { class: "wrap", style: "gap:12px" }, el("h3", null, "Wat de ander proefde"), partners) : null
+  );
+}
+
+function renderSamen() {
+  const pids = partnerIds();
+  const rows = WINES.map(w => {
+    const mine = myEntry(w.id).score;
+    const theirs = pids.map(pid => (state.others[pid][w.id] || {}).score);
+    return { w, mine, theirs, avg: avg([mine, ...theirs]) };
+  }).sort((a, b) => (b.avg ?? -1) - (a.avg ?? -1));
+  const top = rows[0] && rows[0].avg != null ? rows[0] : null;
+  const both = rows.filter(r => r.mine && r.theirs.some(Boolean));
+  const buy = WINES.filter(w => myEntry(w.id).kopen === "ja" && pids.some(pid => (state.others[pid][w.id] || {}).kopen === "ja"));
+
+  return el("section", { class: "wrap" },
+    top ? el("div", { class: "winner" },
+      el("span", { class: "eyebrow" }, "Jullie favoriet tot nu toe"),
+      el("h2", null, top.w.name),
+      el("p", { class: "muted" }, "Gemiddeld een " + fmt(top.avg))) :
+      el("div", { class: "winner" }, el("h3", null, "Nog geen cijfers"), el("p", { class: "muted" }, "Geef een wijn een cijfer, dan verschijnt hier jullie ranglijst.")),
+    el("div", { class: "table-wrap" }, el("table", null,
+      el("thead", null, el("tr", null, el("th", null, "Wijn"), el("th", { class: "n" }, "Jij"),
+        pids.map(pid => el("th", { class: "n" }, nameOf(pid).split(" ")[0])), el("th", { class: "n" }, "Gem."))),
+      el("tbody", null, rows.map(r => el("tr", null,
+        el("td", null, el("span", { class: "glass", style: "background:" + r.w.hue }), r.w.name),
+        el("td", { class: "n" }, r.mine || "–"),
+        r.theirs.map(t => el("td", { class: "n" }, t || "–")),
+        el("td", { class: "n" }, fmt(r.avg))))))),
+    pids.length === 0 ? el("p", { class: "note" }, state.mode === "shared"
+      ? "Zodra je partner de proefkaart opent en een cijfer geeft, verschijnen de scores hier naast elkaar."
+      : "Delen werkt alleen als je bent ingelogd bij Claude. Nu worden je notities op dit toestel bewaard.") : null,
+    both.length ? el("p", { class: "note" }, "Grootste verschil: " + both.slice().sort((a, b) => Math.abs(b.mine - b.theirs[0]) - Math.abs(a.mine - a.theirs[0]))[0].w.name + ".") : null,
+    buy.length ? el("div", { class: "winner" }, el("span", { class: "eyebrow" }, "Allebei: nog eens kopen"), buy.map(w => el("p", null, w.name))) : null
+  );
+}
+
+/* Routing via hash so the iPhone back gesture works */
+function go(view, wine) {
+  const h = view === "wine" ? wine : view === "samen" ? "samen" : "";
+  if (location.hash.slice(1) !== h) location.hash = h; else route();
+  window.scrollTo(0, 0);
+}
+function route() {
+  const h = location.hash.slice(1);
+  if (wineById(h)) { state.view = "wine"; state.wine = h; }
+  else if (h === "samen") state.view = "samen";
+  else state.view = "list";
+  render();
+}
+document.getElementById("tab-list").addEventListener("click", () => go("list"));
+document.getElementById("tab-samen").addEventListener("click", () => go("samen"));
+window.addEventListener("hashchange", route);
+
+/* Boot: render from this device first, then connect to the shared store */
+state.mine = loadLocal();
+route();
+
+(async () => {
+  try {
+    if (!window.claude || !window.claude.use) throw 0;
+    [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
+    state.myId = user ? await user.id() : null;
+  } catch { db = null; }
+  if (!db || !state.myId) {
+    state.mode = "local";
+    setStatus("Je notities worden op dit toestel bewaard. Log in bij Claude om samen te proeven.");
+    render();
+    return;
+  }
+  state.mode = "shared";
+  setStatus("Verbinden...");
+  if (user.can && (await user.can("data.write")) === false) { state.readOnly = true; }
+  const timer = setTimeout(() => setStatus("De gedeelde gegevens zijn nog niet bereikbaar. Je kunt gewoon verder proeven."), 10000);
+  let first = true;
+  db.collection("proevers").onSnapshot(async snap => {
+    if (!snap.metadata.fromCache) clearTimeout(timer);
+    const others = {};
+    let mineRemote = null;
+    for (const d of snap.docs) {
+      const wines = (d.data() || {}).wines || {};
+      if (d.id === state.myId) mineRemote = wines; else others[d.id] = wines;
+    }
+    if (first) {
+      first = false;
+      // Merge: anything typed on this device before connecting is kept and pushed up.
+      const local = state.mine;
+      state.mine = Object.assign({}, mineRemote || {}, local);
+      if (Object.keys(local).length && JSON.stringify(state.mine) !== JSON.stringify(mineRemote || {}) && !state.readOnly) doSave();
+    } else if (mineRemote && !saving && !saveTimer) {
+      state.mine = mineRemote; saveLocal();
+    }
+    state.others = others;
+    const ids = Object.keys(others);
+    if (ids.length) {
+      try { const ps = await user.profiles(ids); for (const id of ids) state.names[id] = (ps[id] && ps[id].name) || "Partner"; } catch {}
+    }
+    setStatus(state.readOnly ? "Je kijkt mee. Vraag om Bijdrager-toegang om zelf te proeven."
+      : ids.length ? "Gedeeld met " + ids.map(nameOf).join(", ") : "Gedeeld. Je partner ziet je scores zodra die de kaart opent.");
+    // Avoid wiping a textarea mid-typing: only redraw when not focused on the notes field.
+    if (!(document.activeElement && document.activeElement.tagName === "TEXTAREA")) render();
+  }, () => { clearTimeout(timer); setStatus("Verbinding met de gedeelde kaart is verbroken. Herlaad de pagina later."); });
+})();
+</script>
