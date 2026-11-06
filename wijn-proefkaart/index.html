@@ -137,18 +137,18 @@ th.n { text-align: right; }
 
 <script>
 const WINES = [
-  { id: "carignan", name: "Terre de Jules Carignan-Syrah", vintage: 2023, producer: "Mas de Jules", country: "Frankrijk", region: "Languedoc, Pays d'Hérault", grapes: "70% Carignan (oude stokken), 30% Syrah", extra: "Biologisch, koolzuurmaceratie", hue: "#8a1f3d",
-    shop: "Fruitig, zacht en rond. Smaken van zwarte bes en bramenjam. Gemaakt met koolzuurmaceratie voor fruit en frisheid.", pair: "" },
+  { id: "syrahgm", name: "By Colaris Syrah Grenache Mourvèdre", vintage: "", producer: "Vignobles Canet (Nathalie Leclercq), exclusief voor Colaris", country: "Frankrijk", region: "IGP Pays d'Oc, bij Carcassonne", grapes: "60% Syrah, 30% Grenache, 10% Mourvèdre", extra: "Al jaren de best verkochte rode huiswijn van Colaris", hue: "#7a1a3a",
+    shop: "Donker bosfruit, aardbei, viooltjes en Provencaalse kruiden. Sappig rood en zwart fruit met een kruidige frisheid en een hint van hazelnoot.", pair: "Gegrild lamsvlees met rozemarijn, ratatouille, pasta met pittige gehaktsaus, halfharde kazen en charcuterie." },
   { id: "mafalda", name: "Little Mafalda Douro", vintage: 2023, producer: "Quinta Dona Mafalda", country: "Portugal", region: "Douro DOC", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz, Tinta Barroca", hue: "#5e1530",
     shop: "Donker fruit, levendige zuren, zachte structuur en een licht peperige afdronk. Zure kers, blauwe bes, bloemige en kruidige tonen.", pair: "Gegrilde kip of kalkoen, tapas met chorizo en Manchego, pasta met geroosterde groenten, burgers." },
+  { id: "grandveneur", name: "Grand Veneur Côtes du Rhône", vintage: 2023, producer: "Alain Jaume, Domaine Grand Veneur", country: "Frankrijk", region: "Côtes du Rhône AOC", grapes: "Grenache, Syrah, Mourvèdre, Cinsault", extra: "Biologisch", hue: "#5a1434",
+    shop: "Paars fruit, zwarte kers, framboos, garrigue en een vleugje drop. Sappig, soepel en vol met zwart fruit en kruidigheid, lange frisse afdronk met zwarte peper.", pair: "Gegrilde worstjes met venkel, ratatouille, lamsbout met tijm en knoflook, geroosterde paprika met geitenkaas." },
   { id: "malbec", name: "Château du Cèdre Marcel Malbec", vintage: 2023, producer: "Château du Cèdre", country: "Frankrijk", region: "Cahors, Vin de France", grapes: "Malbec", hue: "#4a0f2b",
     shop: "Diep robijnrood. Rijpe braam en zwarte kers met viooltjes en kruiden. Sappig en rond, zachte tannines, kort houtcontact en een hint van cacao.", pair: "" },
-  { id: "cabernet", name: "La Bergerie de la Jasse Cabernet Sauvignon", vintage: 2023, producer: "Domaine de la Jasse", country: "Frankrijk", region: "Languedoc", grapes: "Cabernet Sauvignon", hue: "#521329",
-    shop: "Rijpe zwarte bes, braam, peper, vanille en een vleugje eik. Zacht en in balans met een lange, elegante afdronk.", pair: "Gegrild vlees, stoofpotten en belegen kazen." },
-  { id: "primitivo", name: "Tormaresca Neprica Primitivo", vintage: 2024, producer: "Tormaresca (familie Antinori)", country: "Italië", region: "Puglia", grapes: "Primitivo", hue: "#5a1236",
-    shop: "Rijpe bessen, pruimen en kruiden met een hint peper. Sappig rood en zwart fruit, zachte tannines, soepele fruitige afdronk.", pair: "Verse pasta met ragù, gegrild lamsvlees, aubergine met tomaat, halfharde Italiaanse kazen." },
-  { id: "rioja", name: "Ortega Ezquerro Rioja Crianza", vintage: 2021, producer: "Bodegas Ortega Ezquerro", country: "Spanje", region: "Rioja Baja, Tudelilla", grapes: "Tempranillo en Garnacha (stokken ouder dan 70 jaar)", extra: "15 maanden houtrijping", hue: "#6b1a2a",
-    shop: "Rijpe kers, drop, rozen, kokos en zoete kruiden. Zachte tannines, mooie balans tussen fruit en hout.", pair: "Lamsrack met rozemarijn en knoflook, gestoofd rundvlees, gegrilde groenten met balsamico, Manchego." }
+  { id: "moulineyquem", name: "Château Moulin Eyquem", vintage: 2020, producer: "Famille Mostermans", country: "Frankrijk", region: "Côtes de Bourg, Bordeaux", grapes: "Merlot met Cabernet Sauvignon, Cabernet Franc, Malbec en Petit Verdot", extra: "Ongeveer 12 maanden op eiken", hue: "#4f1027",
+    shop: "Soepel en geparfumeerd, met cassis en pruim. Dicht en gestructureerd, met tonen van ceder en kruiden van de houtrijping. (Beschrijving van een eerdere jaargang.)", pair: "Rood vlees." },
+  { id: "aleora", name: "By Colaris Rioja Crianza 'Aléora'", vintage: 2023, producer: "Hermanos Hernáiz, exclusief voor Colaris", country: "Spanje", region: "Rioja Alta", grapes: "85% Tempranillo, 15% Graciano", extra: "15 maanden houtrijping", hue: "#6b1a2a",
+    shop: "Rijpe pruim, zwarte bes, ceder, drop en specerijen. Sappig en krachtig met donkere bessen en laurier, frisse en elegante afdronk.", pair: "Lamsbout met rozemarijn, entrecôte, Manchego of oude Gouda, paddenstoelenrisotto." }
 ];
 const AROMAS = ["Rode kers", "Zwarte kers", "Braam", "Zwarte bes", "Pruim", "Blauwe bes", "Jam", "Viooltjes", "Rozen", "Peper", "Kruiden", "Vanille", "Eik", "Cacao", "Drop", "Kokos", "Leer", "Aards"];
 const COLORS = ["Paars", "Robijn", "Granaat", "Baksteen"];
@@ -248,9 +248,9 @@ function renderList() {
         el("span", { class: "num" }, String(i + 1).padStart(2, "0")),
         el("span", { class: "row-main" },
           el("span", { class: "row-name" }, w.name),
-          el("span", { class: "row-meta" }, el("span", { class: "glass", style: "background:" + w.hue }), w.country + " · " + w.vintage)),
+          el("span", { class: "row-meta" }, el("span", { class: "glass", style: "background:" + w.hue }), [w.country, w.vintage].filter(Boolean).join(" · "))),
         scorePills(w.id))))),
-    el("p", { class: "note" }, "Tip: proef in deze volgorde, van de lichte Carignan naar de gerijpte Rioja. Schenk op 16 tot 18 °C.")
+    el("p", { class: "note" }, "Tip: proef in deze volgorde, van de soepele Syrah Grenache Mourv\u00e8dre naar de Rioja Crianza. Schenk op 16 tot 18 °C.")
   );
 }
 
@@ -314,7 +314,7 @@ function renderWine(w) {
     el("button", { class: "back", onclick: () => go("list") }, "‹ Alle wijnen"),
     el("div", { class: "top" , style: "display:flex;flex-direction:column;gap:6px" },
       el("span", { class: "eyebrow" }, el("span", { class: "glass", style: "background:" + w.hue }), w.country + " · " + w.region),
-      el("h2", null, w.name + " " + w.vintage)),
+      el("h2", null, (w.name + " " + w.vintage).trim())),
     el("dl", { class: "facts" },
       el("dt", null, "Producent"), el("dd", null, w.producer),
       el("dt", null, "Druiven"), el("dd", null, w.grapes),
